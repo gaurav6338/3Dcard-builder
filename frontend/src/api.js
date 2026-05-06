@@ -1,9 +1,17 @@
 // src/api.js
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_BASE_URL || 
-  (typeof window !== 'undefined' && window.location.hostname.includes('netlify') ? 'https://3dcard-builder-production.up.railway.app/api' : 'http://localhost:5000/api')
-);
+const API_BASE_URL = (() => {
+  // If explicitly set via environment
+  if (import.meta.env.VITE_API_BASE_URL) return import.meta.env.VITE_API_BASE_URL;
+  
+  // In production on Netlify/deployed sites, use Railway
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://3dcard-builder-production.up.railway.app/api';
+  }
+  
+  // Development: local backend
+  return 'http://localhost:5000/api';
+})();
 
 const formatNetworkError = (err) => {
   const msg = err?.message || '';

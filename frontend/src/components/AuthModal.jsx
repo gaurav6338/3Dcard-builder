@@ -15,7 +15,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const formatAuthError = (err) => {
     const message = err?.message || 'An unexpected error occurred. Please try again.';
     if (message.includes('Unable to reach backend') || message.includes('Failed to fetch') || message.includes('NetworkError')) {
-      return 'Unable to reach the backend. Make sure the server is running at http://localhost:5000 and try again.';
+      return 'Unable to reach the backend. Please check your deployment and try again.';
     }
     return message;
   };
